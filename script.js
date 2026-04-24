@@ -1,7 +1,10 @@
 const target = Math.floor(Math.random() * 100) + 1;
 let attempts = 0;
 let chancesLeft = 10;
+let gameStarted = false;
+let audioUnlocked = false;
 
+const startBtn = document.getElementById("startBtn");
 const guessInput = document.getElementById("guessInput");
 const submitBtn = document.getElementById("submitBtn");
 const result = document.getElementById("result");
@@ -14,23 +17,59 @@ function showMessage(text, className) {
   result.className = className;
 }
 
+function setControlsEnabled(enabled) {
+  guessInput.disabled = !enabled;
+  submitBtn.disabled = !enabled;
+  submitBtn.style.opacity = enabled ? "1" : "0.65";
+  submitBtn.style.cursor = enabled ? "pointer" : "not-allowed";
+}
+
+function unlockSpeech() {
+  if (!("speechSynthesis" in window)) {
+    return false;
+  }
+
+  try {
+    window.speechSynthesis.cancel();
+    window.speechSynthesis.resume();
+
+    const unlockUtterance = new SpeechSynthesisUtterance(" ");
+    unlockUtterance.lang = "zh-CN";
+    unlockUtterance.volume = 0;
+    window.speechSynthesis.speak(unlockUtterance);
+    audioUnlocked = true;
+    return true;
+  } catch (_error) {
+    return false;
+  }
+}
+
 function speak(text) {
   if (!("speechSynthesis" in window)) {
     return;
   }
 
+  if (!audioUnlocked) {
+    unlockSpeech();
+  }
+
   window.speechSynthesis.cancel();
+  window.speechSynthesis.resume();
   const utterance = new SpeechSynthesisUtterance(text);
   utterance.lang = "zh-CN";
   utterance.rate = 1;
+
+  const voices = window.speechSynthesis.getVoices();
+  const zhVoice = voices.find((voice) => voice.lang && voice.lang.toLowerCase().startsWith("zh"));
+  if (zhVoice) {
+    utterance.voice = zhVoice;
+  }
+
   window.speechSynthesis.speak(utterance);
 }
 
 function endGame() {
-  guessInput.disabled = true;
-  submitBtn.disabled = true;
-  submitBtn.style.opacity = "0.65";
-  submitBtn.style.cursor = "not-allowed";
+  setControlsEnabled(false);
 }
 
 function addHistory(value) {
@@ -40,6 +79,13 @@ function addHistory(value) {
 }
 
 function handleGuess() {
+  unlockSpeech();
+
+  if (!gameStarted) {
+    showMessage("请先点击“开始游戏”以激活移动端声音。", "hint-error");
+    return;
+  }
+
   if (chancesLeft <= 0) {
     return;
   }
@@ -85,6 +131,18 @@ function handleGuess() {
   guessInput.select();
 }
 
+function startGame() {
+  gameStarted = true;
+  unlockSpeech();
+  setControlsEnabled(true);
+  startBtn.disabled = true;
+  startBtn.textContent = "游戏已开始";
+  showMessage("游戏开始！请输入 1 到 100 的数字。", "");
+  guessInput.focus();
+}
+
+setControlsEnabled(false);
+startBtn.addEventListener("click", startGame);
 submitBtn.addEventListener("click", handleGuess);
 guessInput.addEventListener("keydown", (event) => {
   if (event.key === "Enter") {

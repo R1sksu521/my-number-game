@@ -64,9 +64,20 @@ h1 {
 
 .subtitle {
   margin-top: 10px;
-  margin-bottom: 22px;
+  margin-bottom: 14px;
   color: var(--text-muted);
   line-height: 1.6;
+}
+
+.start-btn {
+  width: 100%;
+  margin-bottom: 8px;
+}
+
+.start-tip {
+  margin: 0 0 14px;
+  color: var(--text-muted);
+  font-size: 0.88rem;
 }
 
 .controls {
