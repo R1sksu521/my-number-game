@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>猜数字游戏</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <main class="card">
+      <h1>猜数字游戏</h1>
+      <p class="subtitle">
+        系统会随机生成 <strong>1 ~ 100</strong> 的数字，输入你的猜测并点击提交。
+      </p>
+
+      <div class="controls">
+        <input id="guessInput" type="number" min="1" max="100" placeholder="请输入 1 到 100 的数字" />
+        <button id="submitBtn">提交</button>
+      </div>
+
+      <section id="result">准备好了就开始猜吧！</section>
+      <div class="stats">
+        <div class="stat-card">
+          <div class="stat-label">已猜次数</div>
+          <div class="stat-value" id="count">0</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">剩余次数</div>
+          <div class="stat-value" id="left">10</div>
+        </div>
+      </div>
+      <div class="history">
+        <div class="history-title">历史记录：</div>
+        <ol id="historyList"></ol>
+      </div>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>
