@@ -9,12 +9,17 @@ const firebaseConfig = {
   measurementId: "G-4VQYD12P1T"
 };
 
-if (!firebase.apps.length) {
-  firebase.initializeApp(firebaseConfig);
-}
+let rankingRef = null;
+let isFirebaseReady = false;
 
-const database = firebase.database();
-const rankingRef = database.ref("rankings");
+if (window.firebase) {
+  if (!firebase.apps.length) {
+    firebase.initializeApp(firebaseConfig);
+  }
+  const database = firebase.database();
+  rankingRef = database.ref("rankings");
+  isFirebaseReady = true;
+}
 
 let target = Math.floor(Math.random() * 100) + 1;
 let attempts = 0;
@@ -115,6 +120,13 @@ function subscribeLeaderboard() {
   leaderboard.classList.remove("game-hidden");
   leaderboardTip.style.display = "block";
   leaderboardTip.textContent = "正在加载排行榜...";
+
+  if (!isFirebaseReady || !rankingRef) {
+    leaderboardTip.textContent = "排行榜服务暂不可用（网络或 CDN 受限），游戏可离线进行。";
+    leaderboardList.innerHTML = "";
+    return;
+  }
+
   let resolved = false;
 
   setTimeout(() => {
@@ -142,6 +154,10 @@ function subscribeLeaderboard() {
 }
 
 function saveScoreToRanking() {
+  if (!isFirebaseReady || !rankingRef) {
+    return Promise.resolve();
+  }
+
   return rankingRef.push({
     nickname: playerProfile.nickname,
     avatar: playerProfile.avatar,
