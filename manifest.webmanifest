@@ -1,0 +1,10 @@
+{
+  "name": "猜数字游戏",
+  "short_name": "猜数字",
+  "start_url": "./index.html",
+  "display": "fullscreen",
+  "background_color": "#0a1b3f",
+  "theme_color": "#0a1b3f",
+  "lang": "zh-CN",
+  "orientation": "portrait"
+}

@@ -20,17 +20,21 @@
 body {
   margin: 0;
   min-height: 100vh;
+  height: 100vh;
   font-family: "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
   background: linear-gradient(135deg, var(--bg-start), var(--bg-mid) 45%, var(--bg-end));
+  background-repeat: no-repeat;
+  background-size: cover;
   transition: background 0.6s ease;
   color: var(--text-main);
   display: grid;
   place-items: center;
-  padding: 24px;
+  padding: 16px;
 }
 
 .card {
-  width: min(560px, 100%);
+  width: 90%;
+  max-width: 400px;
   background: var(--card-bg);
   border: 1px solid rgba(226, 232, 240, 0.22);
   backdrop-filter: blur(14px) saturate(135%);
@@ -78,7 +82,8 @@ input[type="number"] {
   background: rgba(15, 23, 42, 0.5);
   color: var(--text-main);
   font-size: 1rem;
-  padding: 12px 14px;
+  min-height: 48px;
+  padding: 12px 16px;
   outline: none;
   transition: border-color 0.2s, box-shadow 0.2s;
 }
@@ -91,7 +96,9 @@ input[type="number"]:focus {
 button {
   border: none;
   border-radius: 12px;
-  padding: 12px 18px;
+  min-height: 48px;
+  padding: 12px 20px;
+  font-size: 1rem;
   color: #082f49;
   background: linear-gradient(135deg, var(--accent), var(--accent-2));
   font-weight: 700;
@@ -184,4 +191,42 @@ button:active {
 
 #historyList li {
   margin-bottom: 4px;
+}
+
+@media (max-width: 480px) {
+  body {
+    padding: 12px;
+  }
+
+  .card {
+    border-radius: 18px;
+    padding: 20px 16px;
+  }
+
+  h1 {
+    font-size: 1.4rem;
+  }
+
+  .subtitle {
+    font-size: 0.95rem;
+    margin-bottom: 16px;
+  }
+
+  .controls {
+    grid-template-columns: 1fr;
+  }
+
+  input[type="number"],
+  button {
+    width: 100%;
+    font-size: 0.98rem;
+  }
+
+  #result {
+    font-size: 0.95rem;
+  }
+
+  .stat-value {
+    font-size: 1.2rem;
+  }
 }
