@@ -46,6 +46,10 @@ body {
   overflow: hidden;
 }
 
+.game-hidden {
+  display: none;
+}
+
 .card::before {
   content: "";
   position: absolute;
@@ -69,15 +73,14 @@ h1 {
   line-height: 1.6;
 }
 
-.start-btn {
-  width: 100%;
-  margin-bottom: 8px;
-}
-
-.start-tip {
-  margin: 0 0 14px;
-  color: var(--text-muted);
-  font-size: 0.88rem;
+.welcome-bar {
+  margin-bottom: 12px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: rgba(15, 23, 42, 0.6);
+  border: 1px solid rgba(148, 163, 184, 0.3);
+  color: #e0f2fe;
+  font-weight: 600;
 }
 
 .controls {
@@ -97,6 +100,19 @@ input[type="number"] {
   padding: 12px 16px;
   outline: none;
   transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+input[type="text"],
+select {
+  width: 100%;
+  border: 1px solid rgba(148, 163, 184, 0.45);
+  border-radius: 12px;
+  background: rgba(15, 23, 42, 0.5);
+  color: var(--text-main);
+  font-size: 1rem;
+  min-height: 48px;
+  padding: 12px 16px;
+  outline: none;
 }
 
 input[type="number"]:focus {
@@ -204,6 +220,89 @@ button:active {
   margin-bottom: 4px;
 }
 
+.leaderboard {
+  margin-top: 16px;
+  padding: 12px;
+  border-radius: 12px;
+  border: 1px solid rgba(148, 163, 184, 0.28);
+  background: rgba(2, 6, 23, 0.5);
+}
+
+.leaderboard h3 {
+  margin: 0 0 8px;
+  font-size: 1rem;
+}
+
+.leaderboard-tip {
+  margin: 0 0 8px;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+#leaderboardList {
+  margin: 0;
+  padding-left: 18px;
+}
+
+#leaderboardList li {
+  margin-bottom: 4px;
+}
+
+.modal {
+  width: 90%;
+  max-width: 400px;
+}
+
+.modal-card {
+  background: rgba(15, 23, 42, 0.7);
+  border: 1px solid rgba(226, 232, 240, 0.24);
+  border-radius: 24px;
+  padding: 22px 18px;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow: var(--shadow);
+}
+
+.modal-card h2 {
+  margin: 0;
+}
+
+.modal-tip {
+  margin-top: 8px;
+  margin-bottom: 14px;
+  color: var(--text-muted);
+}
+
+.field-label {
+  display: block;
+  margin-top: 10px;
+  margin-bottom: 6px;
+  color: var(--text-muted);
+  font-size: 0.92rem;
+}
+
+.avatar-options {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+}
+
+.avatar-btn {
+  min-height: 44px;
+  font-size: 1.4rem;
+  padding: 6px 0;
+}
+
+.avatar-btn.selected {
+  outline: 2px solid #e0f2fe;
+  transform: translateY(-1px);
+}
+
+.enter-btn {
+  width: 100%;
+  margin-top: 14px;
+}
+
 @media (max-width: 480px) {
   body {
     padding: 12px;
@@ -228,6 +327,8 @@ button:active {
   }
 
   input[type="number"],
+  input[type="text"],
+  select,
   button {
     width: 100%;
     font-size: 0.98rem;

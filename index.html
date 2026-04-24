@@ -13,13 +13,38 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <main class="card">
+    <section id="registerModal" class="modal">
+      <div class="modal-card">
+        <h2>玩家注册</h2>
+        <p class="modal-tip">进入游戏前，请先完善你的信息。</p>
+
+        <label for="nicknameInput" class="field-label">玩家昵称</label>
+        <input id="nicknameInput" type="text" maxlength="12" placeholder="例如：小明" />
+
+        <label for="genderSelect" class="field-label">性别</label>
+        <select id="genderSelect">
+          <option value="male">♂️ 男</option>
+          <option value="female">♀️ 女</option>
+        </select>
+
+        <p class="field-label">选择头像</p>
+        <div id="avatarOptions" class="avatar-options">
+          <button type="button" class="avatar-btn selected" data-avatar="🐶">🐶</button>
+          <button type="button" class="avatar-btn" data-avatar="🐱">🐱</button>
+          <button type="button" class="avatar-btn" data-avatar="🦊">🦊</button>
+          <button type="button" class="avatar-btn" data-avatar="🦁">🦁</button>
+        </div>
+
+        <button id="enterGameBtn" class="enter-btn">进入游戏</button>
+      </div>
+    </section>
+
+    <main id="gameContainer" class="card game-hidden">
+      <div id="welcomeBar" class="welcome-bar"></div>
       <h1>猜数字游戏</h1>
       <p class="subtitle">
         系统会随机生成 <strong>1 ~ 100</strong> 的数字，输入你的猜测并点击提交。
       </p>
-      <button id="startBtn" class="start-btn">开始游戏（开启声音）</button>
-      <p class="start-tip">首次请先点击“开始游戏”，用于激活移动端浏览器语音权限。</p>
 
       <div class="controls">
         <input id="guessInput" type="number" min="1" max="100" placeholder="请输入 1 到 100 的数字" />
@@ -41,8 +66,16 @@
         <div class="history-title">历史记录：</div>
         <ol id="historyList"></ol>
       </div>
+
+      <section id="leaderboard" class="leaderboard game-hidden">
+        <h3>全球排行榜 TOP 10</h3>
+        <p id="leaderboardTip" class="leaderboard-tip">加载中...</p>
+        <ol id="leaderboardList"></ol>
+      </section>
     </main>
 
+    <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-database-compat.js"></script>
     <script src="script.js"></script>
   </body>
 </html>
